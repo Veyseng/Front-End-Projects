@@ -1,40 +1,42 @@
-const progress = document.getElementById('progress');
-const prev = document.getElementById('prev');
-const next = document.getElementById('next');
-const circles = document.querySelectorAll('.circle');
 
-let currentActive = 1;
-function update(){
-	circles.forEach((circle, idx)=>{
-		if(idx < currentActive){
-			circle.classList.add("active");
-		}else {
-			circle.classList.remove('active');
-		}
-	});
-	const actives = document.querySelectorAll('.active')
-	progress.style.width = (((actives.length - 1)/ (circles.length - 1))*100) + '%';
-	if(currentActive === 1){
-		prev.disabled = true;
-	}else if(currentActive === circles.length){
-		next.disabled = true;
-	}else {
-		prev.disabled = false;
-		next.disabled = false;
+const testimonialsContainer = document.querySelector('.testimonial-container')
+const testimonial = document.querySelector('.testimonial')
+const userImage = document.querySelector('.user-image')
+const username = document.querySelector('.username')
+const role = document.querySelector('.role')
+const testimonials = [
+	{
+		name : "Choeng Veyseng",
+		position : 'Techie',
+		photo : "https://source.unsplash.com/100x100/?user",
+		text: "code is amazing"
+	},
+	{
+		name : "Lisa",
+		position : 'Techie',
+		photo : "https://source.unsplash.com/100x100/?user",
+		text: "code is amazing"
+	},
+	{
+		name : "Waee",
+		position : 'Techie',
+		photo : "https://source.unsplash.com/100x100/?user",
+		text: "code is amazing"
+	}
+]
+
+let idx = 1
+
+function updateTestimonial(){
+	const {name, position, photo, text} = testimonials[idx]
+	testimonial.innerHTML = text;
+	userImage.src =photo
+	username.innerHTML = name
+	role.innerHTML = position
+	idx ++;
+	if(idx > testimonials.length - 1){
+		idx = 0
 	}
 }
-next.addEventListener('click',()=>{
-	currentActive++;
-	if(currentActive > circles.length){
-		currentActive = circles.length;
-	}
-	update();
-});
+setInterval(updateTestimonial,10000)
 
-prev.addEventListener('click',()=>{
-	currentActive--;
-	if(currentActive < 1){
-		currentActive = 1;
-	}
-	update();
-});
